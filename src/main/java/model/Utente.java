@@ -1,11 +1,18 @@
 package model;
-
+import model.*;
 /**
  * The type Utente.
  */
 public class Utente {
     private final String login;
     private String password;
+    private int idCliente;
+    private String nome;
+    private String cognome;
+    private String patente;
+    private String email;
+    Utente c =new Utente("a", "b");
+
 
     /**
      * Instantiates a new Utente.
