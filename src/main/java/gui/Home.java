@@ -13,8 +13,8 @@ public class Home {
     private JButton btnVeicoli;
     private JButton btnClienti;
     private JButton btnNoleggi;
-    private JButton btnPagamenti;
-    private JButton btnManutenzioni;
+    private JButton btnScooter;
+    private JButton btnPagamento;
 
     private static JFrame frameHome;
     private Controller controller;
@@ -24,7 +24,6 @@ public class Home {
         frameHome.setContentPane(new Home().mainPanel);
         frameHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameHome.pack();
-        frameHome.setLocationRelativeTo(null);
         frameHome.setVisible(true);
     }
 
@@ -35,7 +34,7 @@ public class Home {
         btnVeicoli.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                apriVeicoli();
+                new Auto(frameHome, controller);
             }
         });
 
@@ -43,7 +42,7 @@ public class Home {
         btnClienti.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                apriClienti();
+                new Cliente(frameHome, controller);
             }
         });
 
@@ -51,53 +50,28 @@ public class Home {
         btnNoleggi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                apriNoleggi();
+                new Noleggio(frameHome, controller);
             }
         });
 
-        // Listener pulsante PAGAMENTI
-        btnPagamenti.addActionListener(new ActionListener() {
+        // Listener pulsante SCOOTER
+        btnScooter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                apriPagamenti();
+                new Scooter(frameHome, controller);
             }
         });
-
-        // Listener pulsante MANUTENZIONI
-        btnManutenzioni.addActionListener(new ActionListener() {
+        // Listener pulsante pagamento
+        btnPagamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                apriManutenzioni();
+                new Pagamento(frameHome, controller);
             }
         });
+
+
+
     }
 
-    // -------------------------------
-    // METODI DI APERTURA DELLE FINESTRE
-    // -------------------------------
-
-    private void apriVeicoli() {
-        JOptionPane.showMessageDialog(frameHome, "Apertura gestione Veicoli...");
-        // new VeicoliGUI(controller);
-    }
-
-    private void apriClienti() {
-        JOptionPane.showMessageDialog(frameHome, "Apertura gestione Clienti...");
-        // new ClientiGUI(controller);
-    }
-
-    private void apriNoleggi() {
-        JOptionPane.showMessageDialog(frameHome, "Apertura gestione Noleggi...");
-        // new NoleggiGUI(controller);
-    }
-
-    private void apriPagamenti() {
-        JOptionPane.showMessageDialog(frameHome, "Apertura gestione Pagamenti...");
-        // new PagamentiGUI(controller);
-    }
-
-    private void apriManutenzioni() {
-        JOptionPane.showMessageDialog(frameHome, "Apertura gestione Manutenzioni...");
-        // new ManutenzioniGUI(controller);
-    }
 }
+
