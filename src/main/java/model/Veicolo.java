@@ -14,9 +14,10 @@ public class Veicolo {
     };
     private Stato stato;
 
-    public Veicolo(int idVeicolo, String marca, String targa, String stato) {
+    public Veicolo(int idVeicolo, String marca, String modello, String targa, String stato) {
         this.idVeicolo = idVeicolo;
         this.marca = marca;
+        this.modello = modello;
         this.targa = targa;
         this.stato = Stato.valueOf(stato.toUpperCase());
     }
@@ -26,8 +27,7 @@ public class Veicolo {
     public String getMarca() {
         return marca;
     }
-    public void setMarca(String marca)
-    {
+    public void setMarca(String marca) {
         this.marca = marca;
     }
     public String getModello() {
@@ -55,6 +55,7 @@ public class Veicolo {
     {
         if (veicoloDaNoleggiare.getStato().equals("DISPONIBILE"))
         {
+            System.out.println("è disponibile");
             return true;
         } else return false;
     }

@@ -7,7 +7,28 @@ public class Auto extends Veicolo{
     private String alimentazione;
 
 
-    public Auto(int idVeicolo, String marca, String targa, String stato) {
-        super(idVeicolo, marca, targa, stato);
+    public Auto(int idVeicolo, String marca, String modello,String targa, String stato,
+                int numeroPorte, String alimentazione) {
+        super(idVeicolo, marca, modello, targa, stato);
+        this.numeroPorte = numeroPorte;
+        this.alimentazione= alimentazione;
     }
+
+    public int getNumeroPorte() {
+        return numeroPorte;
+    }
+    public void setNumeroPorte(int numeroPorte){
+        this.numeroPorte= numeroPorte;
+    }
+    public String getAlimentazione() {
+        return alimentazione;
+    }
+    public String setAlimentazione(String alimentazione){
+        this.alimentazione = alimentazione;
+    }
+    @Override
+    public String toString() {
+        return super.toString() + ": " +numeroPorte+ " porte = " + alimentazione;
+    }
+
 }
