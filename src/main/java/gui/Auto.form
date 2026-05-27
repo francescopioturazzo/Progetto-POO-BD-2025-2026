@@ -14,7 +14,6 @@
 
     <children>
 
-      <!-- INTESTAZIONI -->
       <component id="colId" class="javax.swing.JLabel">
         <constraints><grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0"/></constraints>
         <properties><text value="ID"/></properties>
@@ -50,7 +49,6 @@
         <properties><text value="Stato"/></properties>
       </component>
 
-      <!-- RIGA 1 -->
       <component id="r1c1" class="javax.swing.JLabel">
         <constraints><grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0"/></constraints>
         <properties><text value=""/></properties>
@@ -86,7 +84,6 @@
         <properties><text value=""/></properties>
       </component>
 
-      <!-- BACK -->
       <component id="backButton" class="javax.swing.JButton" binding="back">
         <constraints><grid row="6" column="0" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1"/></constraints>
         <properties><text value="Indietro"/></properties>

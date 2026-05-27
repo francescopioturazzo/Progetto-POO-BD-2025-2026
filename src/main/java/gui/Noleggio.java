@@ -1,21 +1,21 @@
 package gui;
 
 import controller.Controller;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Noleggio {
 
     private JFrame frame;
     private JPanel mainPanel;
-    private JButton IndietroButton;
 
+    private JLabel colCliente, colVeicolo, colInizio, colFine, colPrezzo;
+    private JLabel r1c1, r1c2, r1c3, r1c4, r1c5;
+
+    private JButton IndietroButton;
 
     public Noleggio(JFrame frameChiamante, Controller controller){
 
-        frame = new JFrame("Manutenzione");
+        frame = new JFrame("Noleggio");
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,13 +23,9 @@ public class Noleggio {
         frameChiamante.setVisible(false);
         frame.setVisible(true);
 
-
-        IndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frameChiamante.setVisible(true);
-                frame.dispose();
-            }
+        IndietroButton.addActionListener(e -> {
+            frameChiamante.setVisible(true);
+            frame.dispose();
         });
     }
 }
