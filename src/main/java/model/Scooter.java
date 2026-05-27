@@ -17,7 +17,7 @@ public class Scooter extends Veicolo{
 //        this.cilindrata= cilindrata;
 //
 //
-////        public String toString() {
-////            return super.toString() + " - " + cilindrata + "cc";
+      public String toString() {
+            return super.toString() + " - " + cilindrata + "cc";
 //    }
-}
+}}

@@ -70,9 +70,10 @@ public class Noleggio {
         this.prezzoTotale = prezzoTotale;
     }
 
-//    public int calcolaGiorni(LocalDate inizio, LocalDate fine) {
-//
-//    }
+    public int calcolaGiorni(LocalDate inizio, LocalDate fine) {
+
+        return 0;
+    }
 
     @Override
     public String toString() {
