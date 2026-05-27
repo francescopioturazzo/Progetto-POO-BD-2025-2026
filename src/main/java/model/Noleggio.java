@@ -31,19 +31,19 @@ public class Noleggio {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+//    public void setCliente(String cliente) {
+//        this.cliente = cliente;
+//
+//    }
 
-    }
-
-    public veicolo getVeicolo() {
+    public Veicolo getVeicolo() {
         return veicolo;
     }
 
-    public void setVeicolo(String veicolo) {
-        this.veicolo = veicolo;
-
-    }
+//    public void setVeicolo(String veicolo) {
+//        this.veicolo = veicolo;
+//
+//    }
 
     public LocalDate getDataInizio() {
         return dataInizio;
@@ -70,9 +70,9 @@ public class Noleggio {
         this.prezzoTotale = prezzoTotale;
     }
 
-    public int calcolaGiorni(LocalDate inizio, LocalDate fine) {
-
-    }
+//    public int calcolaGiorni(LocalDate inizio, LocalDate fine) {
+//
+//    }
 
     @Override
     public String toString() {

@@ -13,13 +13,11 @@ public class Scooter extends Veicolo{
     public int getCilindrata(){
         return cilindrata;
     }
-    public void setCilindrata(String cilindrata){
-        this.cilindrata= cilindrata;
-
-
-
-        @Override
-        public String toString() {
-            return super.toString() + " - " + cilindrata + "cc";
-    }
+//    public void setCilindrata(String cilindrata){
+//        this.cilindrata= cilindrata;
+//
+//
+////        public String toString() {
+////            return super.toString() + " - " + cilindrata + "cc";
+//    }
 }

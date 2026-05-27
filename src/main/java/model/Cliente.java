@@ -9,7 +9,6 @@ public class Cliente {
     private String nome;
     private String cognome;
     private String patente;
-    private final String email;
+    private String email;
 
-    public void get
 }

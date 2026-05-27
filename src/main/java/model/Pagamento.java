@@ -2,7 +2,7 @@ package model;
 
 public class Pagamento {
 
-public void setPagamento()
+//public void setPagamento()
 
 
 

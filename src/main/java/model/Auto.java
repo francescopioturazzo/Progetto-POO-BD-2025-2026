@@ -23,7 +23,7 @@ public class Auto extends Veicolo{
     public String getAlimentazione() {
         return alimentazione;
     }
-    public String setAlimentazione(String alimentazione){
+    public void setAlimentazione(String alimentazione){
         this.alimentazione = alimentazione;
     }
     @Override
