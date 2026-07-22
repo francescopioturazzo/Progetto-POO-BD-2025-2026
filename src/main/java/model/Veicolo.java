@@ -1,66 +1,112 @@
 package model;
 
-public class Veicolo {
+public abstract class Veicolo {
 
-    private final int idVeicolo;
-    private String marca;
-    private String modello;
-    private String targa;
-    private enum Stato
-    {
+    private int identificativoVeicolo;
+    private String marcaVeicolo;
+    private String modelloVeicolo;
+    private String targaVeicolo;
+
+    public enum StatoVeicolo {
         DISPONIBILE,
         NOLEGGIATO,
-        MANUTENZIONE;
-    };
-    private Stato stato;
-
-    public Veicolo(int idVeicolo, String marca, String modello, String targa, String stato) {
-        this.idVeicolo = idVeicolo;
-        this.marca = marca;
-        this.modello = modello;
-        this.targa = targa;
-        this.stato = Stato.valueOf(stato.toUpperCase());
-    }
-    public int getIdVeicolo(){
-        return idVeicolo;
-    }
-    public String getMarca() {
-        return marca;
-    }
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-    public String getModello() {
-        return modello;
-    }
-    public void setModello(String modello) {
-        this.modello = modello;
+        IN_MANUTENZIONE
     }
 
-    public String getTarga() {
-        return targa;
-    }
-    public void setTarga(String targa) {
-        this.targa = targa;
+    private StatoVeicolo statoAttualeVeicolo;
+
+    public Veicolo() {}
+
+    public Veicolo(int identificativoVeicolo, String marcaVeicolo, String modelloVeicolo,
+                   String targaVeicolo, String statoAttualeVeicolo) {
+
+        this.identificativoVeicolo = identificativoVeicolo;
+        this.marcaVeicolo = marcaVeicolo;
+        this.modelloVeicolo = modelloVeicolo;
+        this.targaVeicolo = targaVeicolo;
+
+        String statoConvertito = statoAttualeVeicolo.toUpperCase().replace(" ", "_");
+
+        if (statoConvertito.equals("NON_DISPONIBILE")) {
+            statoConvertito = "NOLEGGIATO";
+        }
+
+        if (statoConvertito.equals("MANUTENZIONE")) {
+            statoConvertito = "IN_MANUTENZIONE";
+        }
+
+        this.statoAttualeVeicolo = StatoVeicolo.valueOf(statoConvertito);
     }
 
-    public String getStato() {
-        return stato.name();
-    }
-    public void setStato(String stato) {
-        this.stato = Stato.valueOf(stato.toUpperCase());
+    public int getIdentificativoVeicolo() {
+        return identificativoVeicolo;
     }
 
-    public boolean isDisponibile (Veicolo veicoloDaNoleggiare)
-    {
-        if (veicoloDaNoleggiare.getStato().equals("DISPONIBILE"))
-        {
-            System.out.println("è disponibile");
-            return true;
-        } else return false;
+    public void setIdentificativoVeicolo(int nuovoIdentificativoVeicolo) {
+        this.identificativoVeicolo = nuovoIdentificativoVeicolo;
     }
+
+    public String getMarcaVeicolo() {
+        return marcaVeicolo;
+    }
+
+    public void setMarcaVeicolo(String nuovaMarcaVeicolo) {
+        this.marcaVeicolo = nuovaMarcaVeicolo;
+    }
+
+    public String getModelloVeicolo() {
+        return modelloVeicolo;
+    }
+
+    public void setModelloVeicolo(String nuovoModelloVeicolo) {
+        this.modelloVeicolo = nuovoModelloVeicolo;
+    }
+
+    public String getTargaVeicolo() {
+        return targaVeicolo;
+    }
+
+    public void setTargaVeicolo(String nuovaTargaVeicolo) {
+        this.targaVeicolo = nuovaTargaVeicolo;
+    }
+
+    public String getStatoAttualeVeicolo() {
+        return statoAttualeVeicolo.name();
+    }
+
+    public void setStatoAttualeVeicolo(String nuovoStatoAttualeVeicolo) {
+
+        String statoConvertito = nuovoStatoAttualeVeicolo.toUpperCase().replace(" ", "_");
+
+        if (statoConvertito.equals("NON_DISPONIBILE")) {
+            statoConvertito = "NOLEGGIATO";
+        }
+
+        if (statoConvertito.equals("MANUTENZIONE")) {
+            statoConvertito = "IN_MANUTENZIONE";
+        }
+
+        this.statoAttualeVeicolo = StatoVeicolo.valueOf(statoConvertito);
+    }
+
+    public boolean verificaDisponibilitaVeicolo() {
+        return statoAttualeVeicolo == StatoVeicolo.DISPONIBILE;
+    }
+
+    public void impostaVeicoloComeNoleggiato() {
+        this.statoAttualeVeicolo = StatoVeicolo.NOLEGGIATO;
+    }
+
+    public void impostaVeicoloComeDisponibile() {
+        this.statoAttualeVeicolo = StatoVeicolo.DISPONIBILE;
+    }
+
+    public void impostaVeicoloInManutenzione() {
+        this.statoAttualeVeicolo = StatoVeicolo.IN_MANUTENZIONE;
+    }
+
     @Override
     public String toString() {
-        return idVeicolo + "-" +marca+" "+modello+ "(" + targa + ")";
+        return identificativoVeicolo + " - " + marcaVeicolo + " " + modelloVeicolo + " (" + targaVeicolo + ")";
     }
 }

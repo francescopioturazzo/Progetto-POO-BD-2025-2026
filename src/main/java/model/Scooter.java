@@ -1,23 +1,47 @@
 package model;
-import model.*;
-public class Scooter extends Veicolo{
+
+public class Scooter extends Veicolo {
 
     private int cilindrata;
 
+    public Scooter() {}
 
-    public Scooter(int idVeicolo, String marca, String modello, String targa, String stato, int cilindrata) {
-        super(idVeicolo, marca, modello, targa, stato);
+    public Scooter(int id, String targa, String marca, String modello, int cilindrata, String stato) {
+        super(id, marca, modello, targa, stato);
         this.cilindrata = cilindrata;
     }
 
-    public int getCilindrata(){
+    // Getter e Setter compatibili con GUI e DAO
+    public int getId() {
+        return super.getIdentificativoVeicolo();
+    }
+
+    public String getTarga() {
+        return super.getTargaVeicolo();
+    }
+
+    public String getMarca() {
+        return super.getMarcaVeicolo();
+    }
+
+    public String getModello() {
+        return super.getModelloVeicolo();
+    }
+
+    public int getCilindrata() {
         return cilindrata;
     }
-//    public void setCilindrata(String cilindrata){
-//        this.cilindrata= cilindrata;
-//
-//
-      public String toString() {
-            return super.toString() + " - " + cilindrata + "cc";
-//    }
-}}
+
+    public void setCilindrata(int cilindrata) {
+        this.cilindrata = cilindrata;
+    }
+
+    public String getStato() {
+        return super.getStatoAttualeVeicolo();
+    }
+
+    @Override
+    public String toString() {
+        return getMarca() + " " + getModello() + " (" + getTarga() + ") - " + cilindrata + "cc - Stato: " + getStato();
+    }
+}

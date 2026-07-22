@@ -1,58 +1,60 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Pagamento {
 
-    private int idPagamento;
+    private int id;
     private String metodo;
     private double importo;
-    private String data;
+    private LocalDate dataPagamento;
+    private int idCliente; // 🔥 AGGIUNTO per compatibilità con GUI
 
-    public Pagamento() {
-        // costruttore vuoto
-    }
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Pagamento(int idPagamento, String metodo, double importo, String data) {
-        this.idPagamento = idPagamento;
+    public Pagamento() {}
+
+    // 🔥 Costruttore usato dal DAO (LocalDate)
+    public Pagamento(int id, String metodo, double importo, LocalDate dataPagamento) {
+        this.id = id;
         this.metodo = metodo;
         this.importo = importo;
-        this.data = data;
+        this.dataPagamento = dataPagamento;
     }
 
-    public int getIdPagamento() {
-        return idPagamento;
+    // 🔥 Costruttore compatibile con GUI (String → LocalDate)
+    public Pagamento(int id, double importo, String dataPagamentoString, String metodo, int idCliente) {
+        this.id = id;
+        this.importo = importo;
+        this.metodo = metodo;
+        this.idCliente = idCliente;
+        this.dataPagamento = LocalDate.parse(dataPagamentoString, FORMATTER);
     }
 
-    public void setIdPagamento(int nuovoIdPagamento) {
-        this.idPagamento = nuovoIdPagamento;
+    // 🔥 Getter per GUI (LocalDate → String)
+    public String getDataPagamentoString() {
+        return dataPagamento.format(FORMATTER);
     }
 
-    public String getMetodo() {
-        return metodo;
-    }
+    // Getter e Setter
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setMetodo(String nuovoMetodoPagamento) {
-        this.metodo = nuovoMetodoPagamento;
-    }
+    public String getMetodo() { return metodo; }
+    public void setMetodo(String metodo) { this.metodo = metodo; }
 
-    public double getImporto() {
-        return importo;
-    }
+    public double getImporto() { return importo; }
+    public void setImporto(double importo) { this.importo = importo; }
 
-    public void setImporto(double nuovoImportoPagamento) {
-        this.importo = nuovoImportoPagamento;
-    }
+    public LocalDate getDataPagamento() { return dataPagamento; }
+    public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String nuovaDataPagamento) {
-        this.data = nuovaDataPagamento;
-    }
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
     @Override
     public String toString() {
-        return "Pagamento{" + "idPagamento=" + idPagamento + ", metodo='" + metodo + '\'' + ", importo=" + importo + ", data='" + data + '\'' + '}';
+        return id + " - " + metodo + " - " + importo + "€ - " + dataPagamento;
     }
 }
-

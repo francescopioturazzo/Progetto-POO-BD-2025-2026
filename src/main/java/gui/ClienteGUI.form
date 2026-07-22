@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.ClienteGUI">
+  <grid id="juve" binding="juve" layout-manager="GridLayoutManager" row-count="2" column-count="1">
+    <border type="none"/>
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="700" height="500"/>
+    </constraints>
+
+    <children>
+
+      <!-- TABELLA CLIENTI -->
+      <component id="tabellaClienti" class="javax.swing.JTable" binding="tabellaClienti">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1"
+                vsize-policy="6" hsize-policy="6" anchor="0" fill="3"/>
+        </constraints>
+      </component>
+
+      <!-- PANNELLO PULSANTI -->
+      <grid id="panelButtons" layout-manager="GridLayoutManager" row-count="1" column-count="5">
+        <border type="none"/>
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1"
+                vsize-policy="0" hsize-policy="6" anchor="0" fill="3"/>
+        </constraints>
+
+        <children>
+
+          <component id="pulsanteAggiungiCliente" class="javax.swing.JButton" binding="pulsanteAggiungiCliente">
+            <properties><text>Aggiungi</text></properties>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1"
+                    vsize-policy="0" hsize-policy="0" anchor="0" fill="1"/>
+            </constraints>
+          </component>
+
+          <component id="pulsanteModificaCliente" class="javax.swing.JButton" binding="pulsanteModificaCliente">
+            <properties><text>Modifica</text></properties>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1"
+                    vsize-policy="0" hsize-policy="0" anchor="0" fill="1"/>
+            </constraints>
+          </component>
+
+          <component id="pulsanteEliminaCliente" class="javax.swing.JButton" binding="pulsanteEliminaCliente">
+            <properties><text>Elimina</text></properties>
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1"
+                    vsize-policy="0" hsize-policy="0" anchor="0" fill="1"/>
+            </constraints>
+          </component>
+
+          <component id="pulsanteMostraNoleggiCliente" class="javax.swing.JButton" binding="pulsanteMostraNoleggiCliente">
+            <properties><text>Noleggi</text></properties>
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1"
+                    vsize-policy="0" hsize-policy="0" anchor="0" fill="1"/>
+            </constraints>
+          </component>
+
+          <component id="pulsanteIndietro" class="javax.swing.JButton" binding="pulsanteIndietro">
+            <properties><text>Indietro</text></properties>
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1"
+                    vsize-policy="0" hsize-policy="0" anchor="0" fill="1"/>
+            </constraints>
+          </component>
+
+        </children>
+      </grid>
+
+    </children>
+
+  </grid>
+</form>

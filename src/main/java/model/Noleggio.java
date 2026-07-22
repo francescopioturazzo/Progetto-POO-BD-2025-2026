@@ -1,84 +1,91 @@
 package model;
+
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 
 public class Noleggio {
 
-    private final int idNoleggio;
-    private Cliente cliente;
-    private Veicolo veicolo;
+    private int id;
+    private int idCliente;
+    private int idVeicolo;
+    private String tipoVeicolo;
     private LocalDate dataInizio;
     private LocalDate dataFine;
-    private double prezzoTotale;
+    private double costo;
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Noleggio(int id, Cliente cliente, Veicolo veicolo, LocalDate inizio, LocalDate fine, double prezzo) {
+    public Noleggio() {}
 
-        this.idNoleggio = id;
-        this.cliente = cliente;
-        this.veicolo = veicolo;
-        this.dataInizio = inizio;
-        this.dataFine = fine;
-        this.prezzoTotale = prezzo;
+    public Noleggio(int id, int idCliente, int idVeicolo, String tipoVeicolo,
+                    LocalDate dataInizio, LocalDate dataFine, double costo) {
 
-    }
-
-    public int getIdNoleggio() {
-        return idNoleggio;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-//    public void setCliente(String cliente) {
-//        this.cliente = cliente;
-//
-//    }
-
-    public Veicolo getVeicolo() {
-        return veicolo;
-    }
-
-//    public void setVeicolo(String veicolo) {
-//        this.veicolo = veicolo;
-//
-//    }
-
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
-
-    public void setDataInizio(LocalDate dataInizio) {
+        this.id = id;
+        this.idCliente = idCliente;
+        this.idVeicolo = idVeicolo;
+        this.tipoVeicolo = tipoVeicolo;
         this.dataInizio = dataInizio;
-
-    }
-
-    public LocalDate getDataFine() {
-        return dataFine;
-    }
-
-    public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
+        this.costo = costo;
     }
 
-    public double getPrezzoTotale() {
-        return prezzoTotale;
+    public Noleggio(int id, int idCliente, int idVeicolo,
+                    String dataInizioString, String dataFineString, double costo) {
+
+        this.id = id;
+        this.idCliente = idCliente;
+        this.idVeicolo = idVeicolo;
+        this.tipoVeicolo = "";
+
+        this.dataInizio = LocalDate.parse(dataInizioString, FORMATTER);
+
+        if (dataFineString == null || dataFineString.isEmpty()) {
+            this.dataFine = null;
+        } else {
+            this.dataFine = LocalDate.parse(dataFineString, FORMATTER);
+        }
+
+        this.costo = costo;
     }
 
-    public void setPrezzoTotale(double prezzoTotale) {
-        this.prezzoTotale = prezzoTotale;
+    public String getDataInizioString() {
+        return dataInizio.format(FORMATTER);
     }
 
-    public int calcolaGiorni(LocalDate inizio, LocalDate fine) {
-
-        return 0;
+    public String getDataFineString() {
+        if (dataFine == null) {
+            return "—";
+        }
+        return dataFine.format(FORMATTER);
     }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
+
+    public int getIdVeicolo() { return idVeicolo; }
+    public void setIdVeicolo(int idVeicolo) { this.idVeicolo = idVeicolo; }
+
+    public String getTipoVeicolo() { return tipoVeicolo; }
+    public void setTipoVeicolo(String tipoVeicolo) { this.tipoVeicolo = tipoVeicolo; }
+
+    public LocalDate getDataInizio() { return dataInizio; }
+    public void setDataInizio(LocalDate dataInizio) { this.dataInizio = dataInizio; }
+
+    public LocalDate getDataFine() { return dataFine; }
+    public void setDataFine(LocalDate dataFine) { this.dataFine = dataFine; }
+
+    public double getCosto() { return costo; }
+    public void setCosto(double costo) { this.costo = costo; }
 
     @Override
     public String toString() {
-        return idNoleggio + " - " + cliente + " - " + veicolo;
+        return id + " - Cliente: " + idCliente +
+                " - Veicolo: " + idVeicolo +
+                " (" + tipoVeicolo + ")" +
+                " - " + getDataInizioString() + " → " + getDataFineString() +
+                " - " + costo + "€";
     }
-
-
 }

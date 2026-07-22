@@ -3,13 +3,11 @@ package gui;
 import controller.Controller;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Home {
+
     private JPanel mainPanel;
 
-    // Pulsanti collegati dal .form
     private JButton btnVeicoli;
     private JButton btnClienti;
     private JButton btnNoleggi;
@@ -20,58 +18,33 @@ public class Home {
     private Controller controller;
 
     public static void main(String[] args) {
+
         frameHome = new JFrame("Home - Gestionale Noleggio Veicoli");
-        frameHome.setContentPane(new Home().mainPanel);
+
+        Home schermataHome = new Home();
+
+        frameHome.setContentPane(schermataHome.mainPanel);
         frameHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameHome.pack();
         frameHome.setVisible(true);
     }
 
     public Home() {
-        controller = new Controller();
 
-        // Listener pulsante VEICOLI
-        btnVeicoli.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Auto(frameHome, controller);
-            }
-        });
+        controller = new Controller();   // Controller unico per tutta l'app
 
-        // Listener pulsante CLIENTI
-        btnClienti.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Cliente(frameHome, controller);
-            }
-        });
+        // Imposta i testi dei pulsanti
+        btnVeicoli.setText("Gestione Auto");
+        btnClienti.setText("Gestione Clienti");
+        btnNoleggi.setText("Gestione Noleggi");
+        btnScooter.setText("Gestione Scooter");
+        btnPagamento.setText("Gestione Pagamenti");
 
-        // Listener pulsante NOLEGGI
-        btnNoleggi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Noleggio(frameHome, controller);
-            }
-        });
-
-        // Listener pulsante SCOOTER
-        btnScooter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Scooter(frameHome, controller);
-            }
-        });
-        // Listener pulsante pagamento
-        btnPagamento.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Pagamento(frameHome, controller);
-            }
-        });
-
-
-
+        // Collega i pulsanti ai rispettivi frame
+        btnVeicoli.addActionListener(e -> new AutoGUI(frameHome, controller));
+        btnClienti.addActionListener(e -> new ClienteGUI(frameHome, controller));
+        btnNoleggi.addActionListener(e -> new NoleggioGUI(frameHome, controller));
+        btnScooter.addActionListener(e -> new ScooterGUI(frameHome, controller));
+        btnPagamento.addActionListener(e -> new PagamentoGUI(frameHome, controller));
     }
-
 }
-

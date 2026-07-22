@@ -1,46 +1,73 @@
 package model;
 
-import controller.Controller;
-import javax.swing.*;
-
 public class Auto {
 
-    private JFrame frame;
-    private JPanel napoli;
+    private int id;
+    private String targa;
+    private String marca;
+    private String modello;
+    private int porte;
+    private String stato;
 
-    // intestazioni
-    private JLabel colId;
-    private JLabel colTarga;
-    private JLabel colMarca;
-    private JLabel colModello;
-    private JLabel colPorte;
-    private JLabel colAlim;
-    private JLabel colStato;
+    public Auto(int id, String targa, String marca, String modello, int porte, String stato) {
+        this.id = id;
+        this.targa = targa;
+        this.marca = marca;
+        this.modello = modello;
+        this.porte = porte;
+        this.stato = stato;
+    }
 
-    // riga 1
-    private JLabel r1c1;
-    private JLabel r1c2;
-    private JLabel r1c3;
-    private JLabel r1c4;
-    private JLabel r1c5;
-    private JLabel r1c6;
-    private JLabel r1c7;
+    public int getId() {
+        return id;
+    }
 
-    private JButton back;
+    public String getTarga() {
+        return targa;
+    }
 
-    public Auto(JFrame frameChiamante, Controller controller){
+    public String getMarca() {
+        return marca;
+    }
 
-        frame = new JFrame("Auto");
-        frame.setContentPane(napoli);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public String getModello() {
+        return modello;
+    }
 
-        frameChiamante.setVisible(false);
-        frame.setVisible(true);
+    public int getPorte() {
+        return porte;
+    }
 
-        back.addActionListener(e -> {
-            frameChiamante.setVisible(true);
-            frame.dispose();
-        });
+    public String getStato() {
+        return stato;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTarga(String targa) {
+        this.targa = targa;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setModello(String modello) {
+        this.modello = modello;
+    }
+
+    public void setPorte(int porte) {
+        this.porte = porte;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + targa + " - " + marca + " - " + modello + " - " + porte + " porte - " + stato;
     }
 }
