@@ -8,10 +8,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia {@link AutoDAO} per database PostgreSQL.
+ * Gestisce tutte le operazioni CRUD (lettura, inserimento, modifica, eliminazione)
+ * sulla tabella delle automobili.
+ *
+ * <p>Utilizza la connessione fornita da {@link ConnessioneDatabase}.</p>
+ *
+ * @see dao.AutoDAO
+ * @see model.Auto
+ * @see database.ConnessioneDatabase
+ *
+ * @author Francesco & Vincenzo
+ */
 public class AutoImplementazionePostgresDAO implements AutoDAO {
 
+    /** Connessione al database PostgreSQL. */
     private Connection connection;
 
+    /**
+     * Costruttore: ottiene la connessione al database tramite il Singleton.
+     */
     public AutoImplementazionePostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().getConnection();
@@ -20,6 +37,11 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         }
     }
 
+    /**
+     * Restituisce tutte le auto presenti nel database.
+     *
+     * @return lista di oggetti Auto
+     */
     @Override
     public List<Auto> getAll() {
         List<Auto> lista = new ArrayList<>();
@@ -46,6 +68,12 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         return lista;
     }
 
+    /**
+     * Restituisce una singola auto tramite il suo ID.
+     *
+     * @param id identificativo dell'auto
+     * @return oggetto Auto oppure null se non trovato
+     */
     @Override
     public Auto getById(int id) {
         String sql = "SELECT * FROM auto WHERE id_auto = ?";
@@ -73,6 +101,11 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         return auto;
     }
 
+    /**
+     * Elimina un'auto dal database tramite il suo ID.
+     *
+     * @param id identificativo dell'auto da eliminare
+     */
     @Override
     public void delete(int id) {
         String sql = "DELETE FROM auto WHERE id_auto = ?";
@@ -85,6 +118,12 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         }
     }
 
+    /**
+     * Cambia lo stato dell'auto seguendo una rotazione:
+     * DISPONIBILE → NOLEGGIATO → IN_MANUTENZIONE → DISPONIBILE.
+     *
+     * @param id identificativo dell'auto
+     */
     @Override
     public void toggleState(int id) {
         String sqlGet = "SELECT stato FROM auto WHERE id_auto = ?";
@@ -122,6 +161,11 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         }
     }
 
+    /**
+     * Inserisce una nuova auto nel database.
+     *
+     * @param auto oggetto Auto da inserire
+     */
     @Override
     public void insert(Auto auto) {
         String sql = "INSERT INTO auto (targa, marca, modello, porte, stato) VALUES (?, ?, ?, ?, ?)";
@@ -138,6 +182,11 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         }
     }
 
+    /**
+     * Aggiorna i dati di un'auto esistente.
+     *
+     * @param auto oggetto Auto con i nuovi dati
+     */
     @Override
     public void update(Auto auto) {
         String sql = "UPDATE auto SET targa = ?, marca = ?, modello = ?, porte = ?, stato = ? WHERE id_auto = ?";
@@ -155,6 +204,12 @@ public class AutoImplementazionePostgresDAO implements AutoDAO {
         }
     }
 
+    /**
+     * Aggiorna solo lo stato dell'auto.
+     *
+     * @param id identificativo dell'auto
+     * @param nuovoStato nuovo stato da impostare
+     */
     @Override
     public void updateStato(int id, String nuovoStato) {
         String sql = "UPDATE auto SET stato = ? WHERE id_auto = ?";

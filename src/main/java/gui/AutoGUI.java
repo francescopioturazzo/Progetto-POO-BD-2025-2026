@@ -9,23 +9,64 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Interfaccia grafica per la gestione delle automobili.
+ * Permette di visualizzare, aggiungere, modificare, eliminare
+ * e cambiare lo stato delle auto presenti nel sistema.
+ *
+ * <p>La finestra mostra una tabella con tutte le auto e vari pulsanti
+ * per eseguire le operazioni principali.</p>
+ *
+ * <p>Questa classe comunica con il {@link Controller} per ottenere
+ * i dati e aggiornare il database.</p>
+ *
+ * @see model.Auto
+ * @see model.Noleggio
+ * @see controller.Controller
+ *
+ * @author Francesco & Vincenzo
+ */
 public class AutoGUI {
 
+    /** Finestra principale della GUI. */
     private JFrame frame;
+
+    /** Pannello principale che contiene tabella e pulsanti. */
     private JPanel napoli;
 
+    /** Tabella che mostra l'elenco delle auto. */
     private JTable tabellaAuto;
+
+    /** Modello della tabella che gestisce i dati delle auto. */
     private DefaultTableModel modelloTabellaAuto;
 
+    /** Pulsante per aggiungere una nuova auto. */
     private JButton pulsanteAggiungiAuto;
+
+    /** Pulsante per modificare un'auto esistente. */
     private JButton pulsanteModificaAuto;
+
+    /** Pulsante per eliminare un'auto. */
     private JButton pulsanteEliminaAuto;
+
+    /** Pulsante per cambiare lo stato di un'auto. */
     private JButton pulsanteCambiaStatoAuto;
+
+    /** Pulsante per visualizzare i noleggi associati a un'auto. */
     private JButton pulsanteMostraNoleggiAuto;
+
+    /** Pulsante per tornare alla finestra precedente. */
     private JButton pulsanteIndietro;
 
+    /** Controller che gestisce la logica dell'applicazione. */
     private Controller controller;
 
+    /**
+     * Costruisce la finestra di gestione delle auto.
+     *
+     * @param frameChiamante finestra precedente da cui è stata aperta
+     * @param controller controller che gestisce le operazioni
+     */
     public AutoGUI(JFrame frameChiamante, Controller controller) {
         this.controller = controller;
 
@@ -46,6 +87,10 @@ public class AutoGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Crea i componenti grafici principali della finestra:
+     * tabella e pulsanti.
+     */
     private void creaComponentiForm() {
         napoli = new JPanel(new BorderLayout(10, 10));
 
@@ -72,6 +117,10 @@ public class AutoGUI {
         napoli.add(panelButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Inizializza la tabella delle auto impostando colonne,
+     * altezza righe e modalità di selezione.
+     */
     private void inizializzaTabellaAuto() {
         modelloTabellaAuto = new DefaultTableModel(
                 new Object[]{"ID", "Targa", "Marca", "Modello", "Porte", "Stato"},
@@ -83,6 +132,12 @@ public class AutoGUI {
         tabellaAuto.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Inizializza i pulsanti e assegna le azioni da eseguire
+     * quando vengono premuti.
+     *
+     * @param frameChiamante finestra precedente
+     */
     private void inizializzaPulsanti(JFrame frameChiamante) {
 
         pulsanteIndietro.addActionListener(e -> {
@@ -135,6 +190,9 @@ public class AutoGUI {
         });
     }
 
+    /**
+     * Aggiorna la tabella delle auto leggendo i dati dal controller.
+     */
     public void aggiornaTabellaAuto() {
         modelloTabellaAuto.setRowCount(0);
 
@@ -153,6 +211,11 @@ public class AutoGUI {
         }
     }
 
+    /**
+     * Restituisce l'auto selezionata nella tabella.
+     *
+     * @return auto selezionata oppure null se nessuna riga è selezionata
+     */
     private Auto ottieniAutoSelezionata() {
         int riga = tabellaAuto.getSelectedRow();
         if (riga == -1) return null;
@@ -161,10 +224,19 @@ public class AutoGUI {
         return controller.getAutoById(idAuto);
     }
 
+    /**
+     * Mostra un messaggio informativo all'utente.
+     *
+     * @param messaggio testo da mostrare
+     */
     private void mostraMessaggio(String messaggio) {
         JOptionPane.showMessageDialog(frame, messaggio);
     }
 
+    /**
+     * Mostra la finestra per aggiungere una nuova auto.
+     * Permette anche di registrare un noleggio se lo stato è "NOLEGGIATO".
+     */
     private void mostraFinestraAggiungiAuto() {
 
         JDialog dialog = new JDialog(frame, "Aggiungi Auto", true);
@@ -278,6 +350,11 @@ public class AutoGUI {
         dialog.setVisible(true);
     }
 
+    /**
+     * Mostra la finestra per modificare un'auto esistente.
+     *
+     * @param auto auto da modificare
+     */
     private void mostraFinestraModificaAuto(Auto auto) {
 
         JDialog dialog = new JDialog(frame, "Modifica Auto", true);
@@ -331,6 +408,11 @@ public class AutoGUI {
         dialog.setVisible(true);
     }
 
+    /**
+     * Mostra l'elenco dei noleggi associati a una specifica auto.
+     *
+     * @param auto auto di cui visualizzare i noleggi
+     */
     private void mostraNoleggiAuto(Auto auto) {
 
         JDialog dialog = new JDialog(frame, "Noleggi dell'Auto", true);

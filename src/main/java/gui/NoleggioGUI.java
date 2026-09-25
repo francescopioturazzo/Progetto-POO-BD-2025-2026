@@ -11,24 +11,69 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Interfaccia grafica per la gestione dei noleggi.
+ * Permette di visualizzare, aggiungere, modificare, eliminare
+ * e consultare i dettagli di clienti e veicoli collegati ai noleggi.
+ *
+ * <p>La finestra mostra una tabella con tutti i noleggi e vari pulsanti
+ * per eseguire le operazioni principali.</p>
+ *
+ * <p>Questa classe comunica con il {@link Controller} per ottenere
+ * i dati e aggiornare il database.</p>
+ *
+ * @see model.Noleggio
+ * @see model.Cliente
+ * @see model.Auto
+ * @see model.Scooter
+ * @see controller.Controller
+ *
+ * @author Francesco & Vincenzo
+ */
 public class NoleggioGUI {
 
+    /** Finestra principale della GUI. */
     private JFrame frame;
+
+    /** Pannello principale che contiene tabella e pulsanti. */
     private JPanel mainPanel;
 
+    /** Tabella che mostra l'elenco dei noleggi. */
     private JTable tabellaNoleggi;
+
+    /** Modello della tabella che gestisce i dati dei noleggi. */
     private DefaultTableModel modelloTabellaNoleggi;
 
+    /** Pulsante per aggiungere un nuovo noleggio. */
     private JButton pulsanteAggiungiNoleggio;
+
+    /** Pulsante per modificare un noleggio esistente. */
     private JButton pulsanteModificaNoleggio;
+
+    /** Pulsante per eliminare un noleggio. */
     private JButton pulsanteEliminaNoleggio;
+
+    /** Pulsante per visualizzare il cliente associato al noleggio. */
     private JButton pulsanteMostraCliente;
+
+    /** Pulsante per visualizzare il veicolo associato al noleggio. */
     private JButton pulsanteMostraVeicolo;
+
+    /** Pulsante per tornare alla finestra precedente. */
     private JButton pulsanteIndietro;
 
+    /** Controller che gestisce la logica dell'applicazione. */
     private Controller controller;
+
+    /** ID del veicolo usato per filtrare i noleggi (opzionale). */
     private int idVeicolo = -1;
 
+    /**
+     * Costruttore principale della schermata Noleggio.
+     *
+     * @param frameChiamante finestra precedente
+     * @param controller controller che gestisce le operazioni
+     */
     public NoleggioGUI(JFrame frameChiamante, Controller controller) {
         this.controller = controller;
 
@@ -49,6 +94,14 @@ public class NoleggioGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Costruttore alternativo che mostra solo i noleggi
+     * relativi a un determinato veicolo.
+     *
+     * @param frameChiamante finestra precedente
+     * @param controller controller dell'applicazione
+     * @param idVeicolo id del veicolo da filtrare
+     */
     public NoleggioGUI(JFrame frameChiamante, Controller controller, int idVeicolo) {
         this.controller = controller;
         this.idVeicolo = idVeicolo;
@@ -70,6 +123,10 @@ public class NoleggioGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Crea i componenti grafici principali della finestra:
+     * tabella e pulsanti.
+     */
     private void creaComponentiForm() {
         mainPanel = new JPanel(new BorderLayout(10, 10));
 
@@ -96,6 +153,10 @@ public class NoleggioGUI {
         mainPanel.add(panelButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Inizializza la tabella dei noleggi impostando colonne,
+     * altezza righe e modalità di selezione.
+     */
     private void inizializzaTabellaNoleggi() {
         modelloTabellaNoleggi = new DefaultTableModel(
                 new Object[]{"ID", "ID Cliente", "ID Veicolo", "Inizio", "Fine", "Prezzo"},
@@ -108,6 +169,12 @@ public class NoleggioGUI {
         tabellaNoleggi.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Inizializza i pulsanti e assegna le azioni da eseguire
+     * quando vengono premuti.
+     *
+     * @param frameChiamante finestra precedente
+     */
     private void inizializzaPulsanti(JFrame frameChiamante) {
 
         pulsanteIndietro.addActionListener(e -> {
@@ -155,6 +222,9 @@ public class NoleggioGUI {
         });
     }
 
+    /**
+     * Aggiorna la tabella dei noleggi leggendo tutti i dati dal controller.
+     */
     public void aggiornaTabellaNoleggi() {
         modelloTabellaNoleggi.setRowCount(0);
 
@@ -173,6 +243,10 @@ public class NoleggioGUI {
         }
     }
 
+    /**
+     * Aggiorna la tabella mostrando solo i noleggi relativi
+     * al veicolo indicato.
+     */
     public void aggiornaTabellaNoleggiFiltrata() {
         modelloTabellaNoleggi.setRowCount(0);
 
@@ -193,6 +267,11 @@ public class NoleggioGUI {
         }
     }
 
+    /**
+     * Restituisce il noleggio selezionato nella tabella.
+     *
+     * @return noleggio selezionato oppure null se nessuna riga è selezionata
+     */
     private Noleggio ottieniNoleggioSelezionato() {
         int riga = tabellaNoleggi.getSelectedRow();
         if (riga == -1) return null;
@@ -201,10 +280,18 @@ public class NoleggioGUI {
         return controller.getNoleggioById(idNoleggio);
     }
 
+    /**
+     * Mostra un messaggio informativo all'utente.
+     *
+     * @param messaggio testo da mostrare
+     */
     private void mostraMessaggio(String messaggio) {
         JOptionPane.showMessageDialog(frame, messaggio);
     }
 
+    /**
+     * Mostra la finestra per aggiungere un nuovo noleggio.
+     */
     private void mostraFinestraAggiungiNoleggio() {
 
         JDialog dialog = new JDialog(frame, "Aggiungi Noleggio", true);
@@ -253,6 +340,11 @@ public class NoleggioGUI {
         dialog.setVisible(true);
     }
 
+    /**
+     * Mostra la finestra per modificare un noleggio esistente.
+     *
+     * @param n noleggio da modificare
+     */
     private void mostraFinestraModificaNoleggio(Noleggio n) {
 
         JDialog dialog = new JDialog(frame, "Modifica Noleggio", true);
@@ -301,6 +393,11 @@ public class NoleggioGUI {
         dialog.setVisible(true);
     }
 
+    /**
+     * Mostra i dettagli del cliente associato al noleggio.
+     *
+     * @param n noleggio selezionato
+     */
     private void mostraCliente(Noleggio n) {
         Cliente c = controller.getClienteById(n.getIdCliente());
 
@@ -314,6 +411,11 @@ public class NoleggioGUI {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Mostra i dettagli del veicolo associato al noleggio.
+     *
+     * @param n noleggio selezionato
+     */
     private void mostraVeicolo(Noleggio n) {
 
         Auto auto = controller.getAutoById(n.getIdVeicolo());

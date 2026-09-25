@@ -8,19 +8,40 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia {@link ClienteDAO} per database PostgreSQL.
+ * Gestisce tutte le operazioni CRUD (lettura, inserimento, modifica, eliminazione)
+ * sulla tabella dei clienti.
+ *
+ * <p>Utilizza la connessione fornita da {@link ConnessioneDatabase}.</p>
+ *
+ * @see dao.ClienteDAO
+ * @see model.Cliente
+ * @see database.ConnessioneDatabase
+ *
+ * @author Francesco & Vincenzo
+ */
 public class ClienteImplementazionePostgresDAO implements ClienteDAO {
 
+    /** Connessione al database PostgreSQL. */
     private Connection connection;
 
+    /**
+     * Costruttore: ottiene la connessione al database tramite il Singleton.
+     */
     public ClienteImplementazionePostgresDAO() {
         try {
-            // 🔥 CORRETTO: usa il getter pubblico
             connection = ConnessioneDatabase.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Restituisce tutti i clienti presenti nel database.
+     *
+     * @return lista di oggetti Cliente
+     */
     @Override
     public List<Cliente> getAll() {
         List<Cliente> lista = new ArrayList<>();
@@ -46,6 +67,12 @@ public class ClienteImplementazionePostgresDAO implements ClienteDAO {
         return lista;
     }
 
+    /**
+     * Restituisce un singolo cliente tramite il suo ID.
+     *
+     * @param id identificativo del cliente
+     * @return oggetto Cliente oppure null se non trovato
+     */
     @Override
     public Cliente getById(int id) {
         String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
@@ -72,6 +99,11 @@ public class ClienteImplementazionePostgresDAO implements ClienteDAO {
         return cliente;
     }
 
+    /**
+     * Inserisce un nuovo cliente nel database.
+     *
+     * @param cliente oggetto Cliente da inserire
+     */
     @Override
     public void insert(Cliente cliente) {
         String sql = "INSERT INTO cliente (nome, cognome, telefono, email) VALUES (?, ?, ?, ?)";
@@ -87,6 +119,11 @@ public class ClienteImplementazionePostgresDAO implements ClienteDAO {
         }
     }
 
+    /**
+     * Aggiorna i dati di un cliente esistente.
+     *
+     * @param cliente oggetto Cliente con i nuovi dati
+     */
     @Override
     public void update(Cliente cliente) {
         String sql = "UPDATE cliente SET nome = ?, cognome = ?, telefono = ?, email = ? WHERE id_cliente = ?";
@@ -103,6 +140,11 @@ public class ClienteImplementazionePostgresDAO implements ClienteDAO {
         }
     }
 
+    /**
+     * Elimina un cliente dal database tramite il suo ID.
+     *
+     * @param id identificativo del cliente da eliminare
+     */
     @Override
     public void delete(int id) {
         String sql = "DELETE FROM cliente WHERE id_cliente = ?";

@@ -9,22 +9,61 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Interfaccia grafica per la gestione dei clienti.
+ * Permette di visualizzare, aggiungere, modificare, eliminare
+ * e vedere i noleggi associati a un cliente.
+ *
+ * <p>La finestra mostra una tabella con tutti i clienti e vari pulsanti
+ * per eseguire le operazioni principali.</p>
+ *
+ * <p>Questa classe comunica con il {@link Controller} per ottenere
+ * i dati e aggiornare il database.</p>
+ *
+ * @see model.Cliente
+ * @see model.Noleggio
+ * @see controller.Controller
+ *
+ * @author Francesco & Vincenzo
+ */
 public class ClienteGUI {
 
+    /** Finestra principale della GUI. */
     private JFrame frame;
+
+    /** Pannello principale che contiene tabella e pulsanti. */
     private JPanel juve;
 
+    /** Tabella che mostra l'elenco dei clienti. */
     private JTable tabellaClienti;
+
+    /** Modello della tabella che gestisce i dati dei clienti. */
     private DefaultTableModel modelloTabellaClienti;
 
+    /** Pulsante per aggiungere un nuovo cliente. */
     private JButton pulsanteAggiungiCliente;
+
+    /** Pulsante per modificare un cliente esistente. */
     private JButton pulsanteModificaCliente;
+
+    /** Pulsante per eliminare un cliente. */
     private JButton pulsanteEliminaCliente;
+
+    /** Pulsante per visualizzare i noleggi associati a un cliente. */
     private JButton pulsanteMostraNoleggiCliente;
+
+    /** Pulsante per tornare alla finestra precedente. */
     private JButton pulsanteIndietro;
 
+    /** Controller che gestisce la logica dell'applicazione. */
     private Controller controller;
 
+    /**
+     * Costruisce la finestra di gestione dei clienti.
+     *
+     * @param frameChiamante finestra precedente da cui è stata aperta
+     * @param controller controller che gestisce le operazioni
+     */
     public ClienteGUI(JFrame frameChiamante, Controller controller) {
 
         this.controller = controller;
@@ -46,6 +85,10 @@ public class ClienteGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Crea i componenti grafici principali della finestra:
+     * tabella e pulsanti.
+     */
     private void creaComponentiForm() {
 
         juve = new JPanel(new BorderLayout(10, 10));
@@ -71,6 +114,10 @@ public class ClienteGUI {
         juve.add(panelButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Inizializza la tabella dei clienti impostando colonne,
+     * altezza righe e modalità di selezione.
+     */
     private void inizializzaTabellaClienti() {
 
         modelloTabellaClienti = new DefaultTableModel(
@@ -84,6 +131,12 @@ public class ClienteGUI {
         tabellaClienti.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Inizializza i pulsanti e assegna le azioni da eseguire
+     * quando vengono premuti.
+     *
+     * @param frameChiamante finestra precedente
+     */
     private void inizializzaPulsanti(JFrame frameChiamante) {
 
         pulsanteIndietro.addActionListener(e -> {
@@ -91,14 +144,8 @@ public class ClienteGUI {
             frame.dispose();
         });
 
-        // -------------------------
-        // Aggiungi Cliente
-        // -------------------------
         pulsanteAggiungiCliente.addActionListener(e -> mostraFinestraAggiungiCliente());
 
-        // -------------------------
-        // Modifica Cliente
-        // -------------------------
         pulsanteModificaCliente.addActionListener(e -> {
             Cliente cliente = ottieniClienteSelezionato();
             if (cliente != null) {
@@ -108,9 +155,6 @@ public class ClienteGUI {
             }
         });
 
-        // -------------------------
-        // Elimina Cliente
-        // -------------------------
         pulsanteEliminaCliente.addActionListener(e -> {
             Cliente cliente = ottieniClienteSelezionato();
             if (cliente != null) {
@@ -121,9 +165,6 @@ public class ClienteGUI {
             }
         });
 
-        // -------------------------
-        // Mostra Noleggi Cliente
-        // -------------------------
         pulsanteMostraNoleggiCliente.addActionListener(e -> {
             Cliente cliente = ottieniClienteSelezionato();
             if (cliente != null) {
@@ -134,6 +175,9 @@ public class ClienteGUI {
         });
     }
 
+    /**
+     * Aggiorna la tabella dei clienti leggendo i dati dal controller.
+     */
     public void aggiornaTabellaClienti() {
 
         modelloTabellaClienti.setRowCount(0);
@@ -152,6 +196,11 @@ public class ClienteGUI {
         }
     }
 
+    /**
+     * Restituisce il cliente selezionato nella tabella.
+     *
+     * @return cliente selezionato oppure null se nessuna riga è selezionata
+     */
     private Cliente ottieniClienteSelezionato() {
 
         int rigaSelezionata = tabellaClienti.getSelectedRow();
@@ -165,13 +214,18 @@ public class ClienteGUI {
         return controller.getClienteById(idCliente);
     }
 
+    /**
+     * Mostra un messaggio informativo all'utente.
+     *
+     * @param messaggio testo da mostrare
+     */
     private void mostraMessaggio(String messaggio) {
         JOptionPane.showMessageDialog(frame, messaggio);
     }
 
-    // -----------------------------------------------------
-    // FINESTRA AGGIUNGI CLIENTE
-    // -----------------------------------------------------
+    /**
+     * Mostra la finestra per aggiungere un nuovo cliente.
+     */
     private void mostraFinestraAggiungiCliente() {
 
         JDialog dialog = new JDialog(frame, "Aggiungi Cliente", true);
@@ -220,9 +274,11 @@ public class ClienteGUI {
         dialog.setVisible(true);
     }
 
-    // -----------------------------------------------------
-    // FINESTRA MODIFICA CLIENTE
-    // -----------------------------------------------------
+    /**
+     * Mostra la finestra per modificare un cliente esistente.
+     *
+     * @param cliente cliente da modificare
+     */
     private void mostraFinestraModificaCliente(Cliente cliente) {
 
         JDialog dialog = new JDialog(frame, "Modifica Cliente", true);
@@ -271,9 +327,11 @@ public class ClienteGUI {
         dialog.setVisible(true);
     }
 
-    // -----------------------------------------------------
-    // FINESTRA MOSTRA NOLEGGI CLIENTE
-    // -----------------------------------------------------
+    /**
+     * Mostra l'elenco dei noleggi associati a un cliente.
+     *
+     * @param cliente cliente di cui visualizzare i noleggi
+     */
     private void mostraNoleggiCliente(Cliente cliente) {
 
         JDialog dialog = new JDialog(frame, "Noleggi del Cliente", true);

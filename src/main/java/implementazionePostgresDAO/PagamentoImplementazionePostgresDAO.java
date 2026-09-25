@@ -9,19 +9,40 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia {@link PagamentoDAO} per database PostgreSQL.
+ * Gestisce tutte le operazioni CRUD (lettura, inserimento, modifica, eliminazione)
+ * sulla tabella dei pagamenti.
+ *
+ * <p>Utilizza la connessione fornita da {@link ConnessioneDatabase}.</p>
+ *
+ * @see dao.PagamentoDAO
+ * @see model.Pagamento
+ * @see database.ConnessioneDatabase
+ *
+ * @author Francesco & Vincenzo
+ */
 public class PagamentoImplementazionePostgresDAO implements PagamentoDAO {
 
+    /** Connessione al database PostgreSQL. */
     private Connection connection;
 
+    /**
+     * Costruttore: ottiene la connessione al database tramite il Singleton.
+     */
     public PagamentoImplementazionePostgresDAO() {
         try {
-            // 🔥 CORRETTO
             connection = ConnessioneDatabase.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Restituisce tutti i pagamenti presenti nel database.
+     *
+     * @return lista di oggetti Pagamento
+     */
     @Override
     public List<Pagamento> getAll() {
         List<Pagamento> lista = new ArrayList<>();
@@ -52,6 +73,12 @@ public class PagamentoImplementazionePostgresDAO implements PagamentoDAO {
         return lista;
     }
 
+    /**
+     * Restituisce un singolo pagamento tramite il suo ID.
+     *
+     * @param id identificativo del pagamento
+     * @return oggetto Pagamento oppure null se non trovato
+     */
     @Override
     public Pagamento getById(int id) {
         String sql = "SELECT * FROM pagamento WHERE id_pagamento = ?";
@@ -83,6 +110,11 @@ public class PagamentoImplementazionePostgresDAO implements PagamentoDAO {
         return pagamento;
     }
 
+    /**
+     * Inserisce un nuovo pagamento nel database.
+     *
+     * @param pagamento oggetto Pagamento da inserire
+     */
     @Override
     public void insert(Pagamento pagamento) {
         String sql = "INSERT INTO pagamento (metodo, importo, data_pagamento) VALUES (?, ?, ?)";
@@ -103,6 +135,11 @@ public class PagamentoImplementazionePostgresDAO implements PagamentoDAO {
         }
     }
 
+    /**
+     * Aggiorna i dati di un pagamento esistente.
+     *
+     * @param pagamento oggetto Pagamento con i nuovi dati
+     */
     @Override
     public void update(Pagamento pagamento) {
         String sql = "UPDATE pagamento SET metodo = ?, importo = ?, data_pagamento = ? WHERE id_pagamento = ?";
@@ -124,6 +161,11 @@ public class PagamentoImplementazionePostgresDAO implements PagamentoDAO {
         }
     }
 
+    /**
+     * Elimina un pagamento dal database tramite il suo ID.
+     *
+     * @param id identificativo del pagamento da eliminare
+     */
     @Override
     public void delete(int id) {
         String sql = "DELETE FROM pagamento WHERE id_pagamento = ?";

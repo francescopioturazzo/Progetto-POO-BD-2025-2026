@@ -9,22 +9,61 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Interfaccia grafica per la gestione dei pagamenti.
+ * Permette di visualizzare, aggiungere, modificare, eliminare
+ * e consultare il cliente associato a un pagamento.
+ *
+ * <p>La finestra mostra una tabella con tutti i pagamenti e vari pulsanti
+ * per eseguire le operazioni principali.</p>
+ *
+ * <p>Questa classe comunica con il {@link Controller} per ottenere
+ * i dati e aggiornare il database.</p>
+ *
+ * @see model.Pagamento
+ * @see model.Cliente
+ * @see controller.Controller
+ *
+ * @author Francesco & Vincenzo
+ */
 public class PagamentoGUI {
 
+    /** Finestra principale della GUI. */
     private JFrame frame;
+
+    /** Pannello principale che contiene tabella e pulsanti. */
     private JPanel pannello2;
 
+    /** Tabella che mostra l'elenco dei pagamenti. */
     private JTable tabellaPagamenti;
+
+    /** Modello della tabella che gestisce i dati dei pagamenti. */
     private DefaultTableModel modelloTabellaPagamenti;
 
+    /** Pulsante per aggiungere un nuovo pagamento. */
     private JButton pulsanteAggiungiPagamento;
+
+    /** Pulsante per modificare un pagamento esistente. */
     private JButton pulsanteModificaPagamento;
+
+    /** Pulsante per eliminare un pagamento. */
     private JButton pulsanteEliminaPagamento;
+
+    /** Pulsante per visualizzare il cliente associato al pagamento. */
     private JButton pulsanteMostraClientePagamento;
+
+    /** Pulsante per tornare alla finestra precedente. */
     private JButton pulsanteIndietro;
 
+    /** Controller che gestisce la logica dell'applicazione. */
     private Controller controller;
 
+    /**
+     * Costruttore della schermata Pagamento.
+     *
+     * @param frameChiamante finestra precedente
+     * @param controller controller che gestisce le operazioni
+     */
     public PagamentoGUI(JFrame frameChiamante, Controller controller) {
 
         this.controller = controller;
@@ -46,6 +85,10 @@ public class PagamentoGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Crea i componenti grafici principali della finestra:
+     * tabella e pulsanti.
+     */
     private void creaComponentiForm() {
 
         pannello2 = new JPanel(new BorderLayout(10, 10));
@@ -71,6 +114,10 @@ public class PagamentoGUI {
         pannello2.add(panelButtons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Inizializza la tabella dei pagamenti impostando colonne,
+     * altezza righe e modalità di selezione.
+     */
     private void inizializzaTabellaPagamenti() {
 
         modelloTabellaPagamenti = new DefaultTableModel(
@@ -84,6 +131,12 @@ public class PagamentoGUI {
         tabellaPagamenti.getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Inizializza i pulsanti e assegna le azioni da eseguire
+     * quando vengono premuti.
+     *
+     * @param frameChiamante finestra precedente
+     */
     private void inizializzaPulsanti(JFrame frameChiamante) {
 
         pulsanteIndietro.addActionListener(e -> {
@@ -91,14 +144,8 @@ public class PagamentoGUI {
             frame.dispose();
         });
 
-        // -------------------------
-        // Aggiungi Pagamento
-        // -------------------------
         pulsanteAggiungiPagamento.addActionListener(e -> mostraFinestraAggiungiPagamento());
 
-        // -------------------------
-        // Modifica Pagamento
-        // -------------------------
         pulsanteModificaPagamento.addActionListener(e -> {
             Pagamento pagamento = ottieniPagamentoSelezionato();
             if (pagamento != null) {
@@ -108,9 +155,6 @@ public class PagamentoGUI {
             }
         });
 
-        // -------------------------
-        // Elimina Pagamento
-        // -------------------------
         pulsanteEliminaPagamento.addActionListener(e -> {
             Pagamento pagamento = ottieniPagamentoSelezionato();
             if (pagamento != null) {
@@ -121,9 +165,6 @@ public class PagamentoGUI {
             }
         });
 
-        // -------------------------
-        // Mostra Cliente del Pagamento
-        // -------------------------
         pulsanteMostraClientePagamento.addActionListener(e -> {
             Pagamento pagamento = ottieniPagamentoSelezionato();
             if (pagamento != null) {
@@ -134,6 +175,9 @@ public class PagamentoGUI {
         });
     }
 
+    /**
+     * Aggiorna la tabella dei pagamenti leggendo i dati dal controller.
+     */
     public void aggiornaTabellaPagamenti() {
 
         modelloTabellaPagamenti.setRowCount(0);
@@ -151,6 +195,11 @@ public class PagamentoGUI {
         }
     }
 
+    /**
+     * Restituisce il pagamento selezionato nella tabella.
+     *
+     * @return pagamento selezionato oppure null se nessuna riga è selezionata
+     */
     private Pagamento ottieniPagamentoSelezionato() {
 
         int rigaSelezionata = tabellaPagamenti.getSelectedRow();
@@ -164,13 +213,18 @@ public class PagamentoGUI {
         return controller.getPagamentoById(idPagamento);
     }
 
+    /**
+     * Mostra un messaggio informativo all'utente.
+     *
+     * @param messaggio testo da mostrare
+     */
     private void mostraMessaggio(String messaggio) {
         JOptionPane.showMessageDialog(frame, messaggio);
     }
 
-    // -----------------------------------------------------
-    // FINESTRA AGGIUNGI PAGAMENTO
-    // -----------------------------------------------------
+    /**
+     * Mostra la finestra per aggiungere un nuovo pagamento.
+     */
     private void mostraFinestraAggiungiPagamento() {
 
         JDialog dialog = new JDialog(frame, "Aggiungi Pagamento", true);
@@ -219,9 +273,11 @@ public class PagamentoGUI {
         dialog.setVisible(true);
     }
 
-    // -----------------------------------------------------
-    // FINESTRA MODIFICA PAGAMENTO
-    // -----------------------------------------------------
+    /**
+     * Mostra la finestra per modificare un pagamento esistente.
+     *
+     * @param pagamento pagamento da modificare
+     */
     private void mostraFinestraModificaPagamento(Pagamento pagamento) {
 
         JDialog dialog = new JDialog(frame, "Modifica Pagamento", true);
@@ -272,9 +328,11 @@ public class PagamentoGUI {
         dialog.setVisible(true);
     }
 
-    // -----------------------------------------------------
-    // MOSTRA CLIENTE DEL PAGAMENTO
-    // -----------------------------------------------------
+    /**
+     * Mostra i dettagli del cliente associato al pagamento.
+     *
+     * @param pagamento pagamento selezionato
+     */
     private void mostraClientePagamento(Pagamento pagamento) {
 
         Cliente c = controller.getClienteById(pagamento.getIdCliente());
